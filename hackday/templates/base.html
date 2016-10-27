@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}HackDay - Lucas May{% endblock %}</title>
+
+    {% block style %}
+    {% load staticfiles %}
+    <!-- Core CSS - Include with every page -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+
+    <!-- Page-Level Plugin CSS - Dashboard -->
+    <link href="{% static 'css/plugins/morris/morris-0.4.3.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/plugins/timeline/timeline.css' %}" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body>
+
+        {% block header %}
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">HackDay</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+
+                <li><a href="/"> <i class="fa fa-user fa-fw"></i> {{username}} </a>
+                {% if request.user.is_staff %}
+                <li><a href="/"> <i class="fa fa-check-square-o"></i> Usuário Administrador </a>
+                {% endif %}
+                <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+
+              <!-- /.dropdown -->
+            </ul>
+          <!-- /.navbar-top-links -->
+            {% endblock %}
+            {% block menu %}
+              <div class="navbar-default navbar-static-side" role="navigation">
+                  <div class="sidebar-collapse">
+                      <ul class="nav" id="side-menu">
+                          <li>
+                              <a href="/"><i class="fa fa-home"></i> Início</a>
+                          </li>
+                          <li>
+                              <a href="#"><i class="fa fa-book"></i> Áreas<span class="fa arrow"></span></a>
+                              <ul class="nav nav-second-level">
+
+                                  <!-- Percorre todas as materias cadastradas -->
+                                  {% for materia in materias %}
+                                      <li>
+                                        <a href="/materia/{{materia.id}}"><i class="fa fa-pencil-square-o"></i> {{materia.nome}}</a>
+                                      </li>
+                                  {% endfor %}
+                              </ul>
+                      </ul>
+                  </div>
+              </div>
+              </nav>
+            {% endblock %}
+
+            <div class="btn pull-right">
+              <a href="/cadastra/pergunta/" class="btn btn-success" role="button">Adicionar Pergunta</a>
+            </div>
+            <div class="btn pull-right">
+              <a href="/cadastra/materia/" class="btn btn-warning" role="button">Adicionar Área</a>
+            </div>
+        {% block conteudo %}
+        {% endblock %}
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+
+    <!-- Page-Level Plugin Scripts - Dashboard -->
+    <script src="{% static 'js/plugins/morris/raphael-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/plugins/morris/morris.js' %}"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="{% static 'js/sb-admin.js' %}"></script>
+
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="{% static 'js/demo/dashboard-demo.js' %}"></script>
+
+</body>
+
+</html>
+    <!-- Core Scripts - Include with every page -->
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+
+    <!-- Page-Level Plugin Scripts - Dashboard -->
+    <script src="{% static 'js/plugins/morris/raphael-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/plugins/morris/morris.js' %}"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="{% static 'js/sb-admin.js' %}"></script>
+
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="{% static 'js/demo/dashboard-demo.js' %}"></script>

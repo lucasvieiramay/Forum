@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+  <div id="page-wrapper">
+      <div class="row">
+          <div class="col-lg-12">
+              <h1 class="page-header">Cadastre Uma Área :)</h1>
+          </div>
+      </div>
+
+
+			<form method="POST" action="/cadastra/materia/" class="form-horizontal" onsubmit="validaForm()">
+			     {% csrf_token %}
+           <div class="form-group">
+					 <!-- Titulo da Pergunta -->
+					 <label class="col-sm-2 control-label">Nome:</label>
+					 <div class="col-sm-10">
+					    <input type="text" name="nome" id="nome" class="form-control">
+					 </div>
+           <br />
+				<div align="right">
+				<button class="btn btn-success" type="submit">Adicionar</button>
+				</div>
+			</form>
+
+<script type="text/javascript">
+
+	function validaForm(){
+
+		if(document.getElementById("nome").value ==""){
+			alert("Preencha o Campo: nome");
+			return false;
+		}
+	}
+
+</script>
+{% endblock %}

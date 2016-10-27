@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HackDay - Lucas May</title>
+    {% load staticfiles %}
+    <!-- Core CSS - Include with every page -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Faça Login para continuar</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form  action="/login/" method="post" role="form" onsubmit="return validaForm()">
+                          {% csrf_token %}
+                          {% if erro %}
+                          <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Usuário ou senha invalidos :(
+                          </div>
+                          {% endif %}
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Usuário" name="username" id="username" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Senha" name="password" id="password" type="password" value="">
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <div align="right">
+                        				<button class="btn btn-success" type="submit">Entrar</button>
+                        				</div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Não tem cadastro?</h3>
+                        <h3 class="panel-title">Cadastre-se AQUI</h3>
+                        <br />
+                        {% if existe %}
+                        <div class="alert alert-danger alert-dismissable">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Esse nome de usuário já existe, tente outro :(
+                        </div>
+                        {% endif %}
+                        {% if senha_fraca %}
+                        <div class="alert alert-danger alert-dismissable">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Sua senha é muito fraca, tente outra :(
+                        </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="panel-body">
+                        <form  action="/create/user/" method="post" role="form" onsubmit="return validaForm2()">
+                          {% csrf_token %}
+                            <fieldset>
+                                <div class="form-group">
+                                  <input class="form-control" placeholder="Usuário" name="username" id="username2" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="E-mail" name="email" id="email" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Senha" name="password" id="password2" type="password" value="">
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <div align="right">
+                        				<button class="btn btn-success" type="submit">Criar Usuário</button>
+                        				</div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <a href="/create/administrador/"><i>Para criar um usuário administrador clique aqui...</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+    function validaForm(){
+
+    	if(document.getElementById("username").value ==""){
+    		alert("Preencha o Campo: Usuário");
+    		return false;
+    	}
+    	if(document.getElementById("password").value ==""){
+    		alert("Preencha o Campo: Senha");
+    		return false;
+    	}
+    }
+    function validaForm2(){
+
+    	if(document.getElementById("username2").value ==""){
+    		alert("Preencha o Campo: Usuário");
+    		return false;
+    	}
+      if(document.getElementById("email").value ==""){
+        alert("Preencha o Campo: E-mail");
+        return false;
+      }
+    	if(document.getElementById("password2").value ==""){
+    		alert("Preencha o Campo: Senha");
+    		return false;
+    	}
+    }
+
+</script>
+
+<!-- Core Scripts - Include with every page -->
+<script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+
+<!-- SB Admin Scripts - Include with every page -->
+<script src="{% static 'js/sb-admin.js' %}"></script>
+
+</body>
+
+</html>

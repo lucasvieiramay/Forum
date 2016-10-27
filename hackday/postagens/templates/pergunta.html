@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{pergunta.titulo}}
+              <span style="font-size: 14px;">Postada por: {{pergunta.autor}} em: {{pergunta.updated_at}}</span>
+
+              {% if autor_pergunta %}
+              <div class="btn pull-right">
+                <a href="/apaga/pergunta/{{pergunta.id}}" class="btn btn-danger" role="button">Apagar Pergunta</a>
+              </div>
+              <div class="btn pull-right">
+                <a href="/edita/pergunta/{{pergunta.id}}" class="btn btn-warning" role="button">Editar Pergunta</a>
+              </div>
+              {% elif admin %}
+              <div class="btn pull-right">
+                <a href="/apaga/pergunta/{{pergunta.id}}" class="btn btn-danger" role="button">Apagar Pergunta [adm]</a>
+              </div>
+              <div class="btn pull-right">
+                <a href="/edita/pergunta/{{pergunta.id}}" class="btn btn-warning" role="button">Editar Pergunta [adm]</a>
+              </div>
+              {% endif %}
+            </h1>
+        </div>
+    </div>
+    {% for resposta in respostas %}
+
+               <div class="col-lg-12">
+                   <div class="panel panel-primary">
+                       <div class="panel-heading">
+                           {{resposta.autor}}
+                           {% if resposta.autor == request.user or request.user.is_staff %}
+                               <div class="pull-right">
+                                 <a style="color: #fff;" href="/apaga/resposta/{{resposta.id}}"><i class="fa fa-trash"></i> Excluir </a>
+                               </div>
+                               <div style="margin-right: 15px;" class="pull-right">
+                                 <a style="color: #fff;" href="/edita/resposta/{{resposta.id}}"><i class="fa fa-edit"></i> Editar </a>
+                               </div>
+                            {% endif %}
+                       </div>
+                       <div class="panel-body">
+                           <p>{{resposta.conteudo}}</p>
+                       </div>
+                       <div class="panel-footer">
+                           <p> Comentado em: {{resposta.updated_at}}
+                       </div>
+                   </div>
+               </div>
+    {% endfor %}
+
+    <div class="col-lg-12">
+        <h1 class="page-header">Responda essa pergunta</h1>
+    </div>
+
+    <form method="POST" action="/cadastra/resposta/{{pergunta.id}}/" class="form-horizontal" onsubmit="validaForm()">
+         {% csrf_token %}
+         <div class="form-group">
+         <!-- Titulo da Pergunta -->
+         <label class="col-sm-2 control-label">Resposta:</label>
+         <div class="col-sm-10">
+            <input type="text" name="resposta" id="resposta" class="form-control">
+         </div>
+         <br />
+         <br />
+
+      <div align="right">
+        <br />
+      <button class="btn btn-success" type="submit">Adicionar</button>
+      </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+function validaForm(){
+
+  if(document.getElementById("resposta").value ==""){
+    alert("Preencha o Campo: Resposta");
+    return false;
+  }
+}
+
+</script>
+{% endblock %}

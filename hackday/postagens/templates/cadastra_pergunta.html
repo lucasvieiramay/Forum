@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+  <div id="page-wrapper">
+      <div class="row">
+          {% if edit %}
+            <div class="col-lg-12">
+                <h1 class="page-header">Edite essa Pergunta :)</h1>
+            </div>
+          {% else %}
+            <div class="col-lg-12">
+                <h1 class="page-header">Cadastre Uma Pergunta :)</h1>
+            </div>
+          {% endif %}
+      </div>
+
+      {% if edit %}
+      <!--Form Editar -->
+      <form method="POST" action="/edita/pergunta/{{pergunta.id}}/" class="form-horizontal" onsubmit="validaForm()">
+        {% csrf_token %}
+        <div class="form-group">
+          <!-- Titulo da Pergunta -->
+          <label class="col-sm-2 control-label">Pergunta:</label>
+          <div class="col-sm-10">
+            <input type="text" placeholder="{{pergunta.titulo}}" name="titulo" id="titulo" class="form-control">
+          </div>
+          <br />
+          <br />
+          <br />
+          <!-- comentario da Pergunta Opcional-->
+          <label class="col-sm-2 control-label">Descrição:</label>
+          <div class="col-sm-10">
+            <input type="text" placeholder="{{pergunta.comentario}}" name="comentario" id="comentario" class="form-control">
+          </div>
+          <br />
+          <br />
+          <br />
+          <!-- Materia da pergunta -->
+          <label class="col-sm-2 control-label">Área (Assunto):</label>
+          <div class="col-sm-6">
+            <select id="materia" name="materia" class="form-control">
+
+              {% if materias %}
+
+              {% for materia in materias %}
+              <option value="{{materia.id}}"> {{materia.nome}} </option>
+              {% endfor %}
+
+              {% else %}
+              <option value=""> Cadastre uma matéria antes! </option>
+              {% endif %}
+
+            </select>
+          </div>
+
+        </div>
+
+        <div align="right">
+          <button class="btn btn-success" type="submit">Adicionar</button>
+        </div>
+      </form>
+
+      {% else %}
+          <!--Nova Pergunta -->
+          <form method="POST" action="/cadastra/pergunta/" class="form-horizontal" onsubmit="validaForm()">
+            {% csrf_token %}
+            <div class="form-group">
+              <!-- Titulo da Pergunta -->
+              <label class="col-sm-2 control-label">Pergunta:</label>
+              <div class="col-sm-10">
+                <input type="text" name="titulo" id="titulo" class="form-control">
+              </div>
+              <br />
+              <br />
+              <br />
+              <!-- comentario da Pergunta Opcional-->
+              <label class="col-sm-2 control-label">Descrição:</label>
+              <div class="col-sm-10">
+                <input type="text" name="comentario" id="comentario" class="form-control">
+              </div>
+              <br />
+              <br />
+              <br />
+              <!-- Materia da pergunta -->
+              <label class="col-sm-2 control-label">Área (Assunto):</label>
+              <div class="col-sm-6">
+                <select id="materia" name="materia" class="form-control">
+
+                  {% if materias %}
+
+                  {% for materia in materias %}
+                  <option value="{{materia.id}}"> {{materia.nome}} </option>
+                  {% endfor %}
+
+                  {% else %}
+                  <option value=""> Cadastre uma matéria antes! </option>
+                  {% endif %}
+
+                </select>
+              </div>
+
+            </div>
+
+            <div align="right">
+              <button class="btn btn-success" type="submit">Adicionar</button>
+            </div>
+          </form>
+
+      {% endif %}
+
+<script type="text/javascript">
+
+	function validaForm(){
+
+		if(document.getElementById("titulo").value ==""){
+			alert("Preencha o Campo: Titulo");
+			return false;
+		}
+		if(document.getElementById("materia").value ==""){
+			alert("Preencha o Campo: Matéria");
+			return false;
+		}
+	}
+
+</script>
+{% endblock %}
