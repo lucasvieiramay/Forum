@@ -9,6 +9,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from utils import senha_segura
+from models import Avaliacao
 
 
 # view para logar
@@ -141,5 +142,35 @@ def home(request):
     return render(
         request,
         'home.html',
+        context
+    )
+
+@login_required(login_url='/login/')
+# Avaliacao da apresentacao
+def avaliacao(request):
+    # Cria dicionario
+    context = {}
+    if request.POST:
+        #pega o que vier do form
+        context['opiniao'] = request.POST.get("opiniao")
+        context['assunto'] = request.POST.get("assunto")
+        context['comentario'] = request.POST.get("comentario")
+        #se tiver o campo obrigatorio
+        if context['opiniao']:
+            #Cria a avaliacao
+            avaliacao = Avaliacao.objects.create(
+                opiniao = context['opiniao'],
+                assunto = context['assunto'],
+                comentario = context['comentario'],
+            )
+            context['avaliacao_feita'] = True
+            return render(
+                request,
+                'home.html',
+                context
+            )
+    return render(
+        request,
+        'avaliacao.html',
         context
     )

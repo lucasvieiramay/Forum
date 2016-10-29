@@ -78,6 +78,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hackday.wsgi.application'
 
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 

@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^apaga/resposta/(?P<resposta>\w+)/$', 'postagens.views.apaga_resposta'),
     url(r'^cadastra/materia/$', 'materias.views.cadastra_materia'),
     url(r'^cadastra/resposta/(?P<pergunta>\w+)/$', 'postagens.views.cadastra_resposta'),
+    url(r'^avalie/$', 'forum.views.avaliacao'),
 ]
